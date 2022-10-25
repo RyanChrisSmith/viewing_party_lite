@@ -18,6 +18,7 @@ RSpec.describe 'Movies show page' do
       #   When I visit a movie's detail page (/users/:user_id/movies/:movie_id where :id is a valid user id,
       # I should see
       # _ Button to create a viewing party
+      save_and_open_page
       expect(page).to have_button("Create Viewing Party")
       click_button("Create Viewing Party")
       expect(current_path).to eq(new_users_movie_party_path(@movie.id))

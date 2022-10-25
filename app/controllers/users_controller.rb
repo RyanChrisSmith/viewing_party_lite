@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+  before_action :require_user, only: [:show]
+
   def show
     @user = User.find(session[:user_id])
     @parties = @user.parties
-    # #@hosted_parties = @user.parties.where(host_status: true)
   end
 
   def discover

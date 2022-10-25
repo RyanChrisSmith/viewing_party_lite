@@ -1,4 +1,6 @@
 class PartiesController < ApplicationController
+  before_action :require_user, only: [:new, :create]
+
   def new
     @user = User.find(session[:user_id])
     @users = User.where.not(id: params[:user_id])

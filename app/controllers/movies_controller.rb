@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
-  def index
+
+ def index
     @user = User.find(session[:user_id])
     if params[:search] == ""
       redirect_to discover_users_path
@@ -15,6 +16,5 @@ class MoviesController < ApplicationController
 
   def show
     @movie = MoviesFacade.movie_details(params[:id])
-    @user = User.find(session[:user_id])
   end
 end
