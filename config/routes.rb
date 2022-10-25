@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/login', to: 'users#login'
   get '/login', to: 'users#login_form'
+  delete '/logout', to: 'users#logout'
 end
