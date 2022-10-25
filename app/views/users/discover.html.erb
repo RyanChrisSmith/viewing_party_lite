@@ -1,8 +1,8 @@
 <h1><%= @user.name %>'s' discover movies page</h1>
 <br>
-<strong><%= button_to "Discover Top Rated Movies", user_movies_path(@user), method: :get %></strong>
+<strong><%= button_to "Discover Top Rated Movies", users_movies_path, method: :get %></strong>
 <br>
-<strong><%= form_with url: user_movies_path(@user), method: :get, local: true do |f| %>
+<strong><%= form_with url: users_movies_path, method: :get, local: true do |f| %>
           <%= f.label :search %>
           <%= f.text_field :search %>
           <%= f.submit 'Search by movie title' %>

@@ -1,8 +1,8 @@
 class MoviesController < ApplicationController
   def index
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
     if params[:search] == ""
-      redirect_to user_discover_path(@user)
+      redirect_to discover_users_path
       flash[:alert] = "Search Field Can't Be Blank"
     else
       @movies = if params[:search]
@@ -15,6 +15,6 @@ class MoviesController < ApplicationController
 
   def show
     @movie = MoviesFacade.movie_details(params[:id])
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
   end
 end

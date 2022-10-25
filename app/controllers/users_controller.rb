@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    @user = User.find(session[:user_id])
     @parties = @user.parties
     # #@hosted_parties = @user.parties.where(host_status: true)
   end
 
   def discover
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
   end
 
   def new; end
@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      redirect_to(user_path(user))
+      session[:user_id] = user.id
+      redirect_to users_path
       flash[:notice] = "Welcome #{user.name}"
     else
       redirect_to('/register')
@@ -27,7 +28,8 @@ class UsersController < ApplicationController
   def login
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
-      redirect_to user_path(user)
+      session[:user_id] = user.id
+      redirect_to users_path
       flash[:success] = "Welcome back, #{user.email}!"
     else
       redirect_to '/login'

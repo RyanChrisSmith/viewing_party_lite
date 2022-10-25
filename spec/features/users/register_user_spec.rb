@@ -6,7 +6,7 @@ RSpec.describe 'User registration form' do
     click_on "Register as a User"
     # As a visitor
     # When I visit `/register`
-    expect(current_path).to eq(new_user_path)
+    expect(current_path).to eq(new_users_path)
 
     name = "Happy"
     email = "happy@me.com"
@@ -19,7 +19,7 @@ RSpec.describe 'User registration form' do
     # When I fill in that form with my name, email, and matching passwords,
     click_on "Submit"
     # I'm taken to my dashboard page `/users/:id`
-    expect(current_path).to eq(user_path(User.last))
+    expect(current_path).to eq(users_path)
 
     expect(page).to have_content("Welcome #{name}")
   end

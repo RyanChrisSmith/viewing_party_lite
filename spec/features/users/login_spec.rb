@@ -17,7 +17,7 @@ RSpec.describe 'Login' do
     fill_in :password, with: user.password
     click_on 'Login'
     # I'm taken to my dashboard page
-    expect(current_path).to eq(user_path(user))
+    expect(current_path).to eq(users_path)
   end
 
   it 'can give errors when login info is incorrect' do

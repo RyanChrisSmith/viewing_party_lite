@@ -25,7 +25,7 @@ RSpec.describe 'User Registration' do
       it 'I am taken to the dashboard page for that user' do
         click_button 'Submit'
 
-        expect(current_path).to eq(user_path(User.last))
+        expect(current_path).to eq(users_path)
       end
     end
 

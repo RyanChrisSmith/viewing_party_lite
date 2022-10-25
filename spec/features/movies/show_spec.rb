@@ -5,32 +5,37 @@ RSpec.describe 'Movies show page' do
     VCR.use_cassette('example_movie') do
       @user = User.create!(name: 'John', email: 'john@user.com',  password: 'test')
       @movie = MoviesFacade.movie_details(238)
+      visit login_path
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_on 'Login'
+      visit users_movie_path(@movie.id)
     end
   end
   describe 'buttons and links' do
     it 'has a button for viewing party creation', :vcr do
-      visit user_movie_path(@user, @movie.id)
+
       #   When I visit a movie's detail page (/users/:user_id/movies/:movie_id where :id is a valid user id,
       # I should see
       # _ Button to create a viewing party
       expect(page).to have_button("Create Viewing Party")
       click_button("Create Viewing Party")
-      expect(current_path).to eq(new_user_movie_party_path(@user, @movie.id))
+      expect(current_path).to eq(new_users_movie_party_path(@movie.id))
       # Details: This viewing party button should take the user to the new viewing party page (/users/:user_id/movies/:movie_id/viewing-party/new)
     end
 
     it 'has a button to return to Discover Page', :vcr do
-      visit user_movie_path(@user, @movie.id)
+
       # _ Button to return to the Discover Page
       expect(page).to have_button("Return to Discover Page")
       click_button("Return to Discover Page")
-      expect(current_path).to eq(user_discover_path(@user))
+      expect(current_path).to eq(discover_users_path)
     end
   end
 
   describe 'page content' do
     it 'can display all details of the movie', :vcr do
-      visit user_movie_path(@user, @movie.id)
+
       # And I should see the following information about the movie:
 
       # _Movie Title

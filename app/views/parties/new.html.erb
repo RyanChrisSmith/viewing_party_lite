@@ -2,7 +2,7 @@
 
 <p>Fill out your party deets below</p>
 
-<%= form_with url: user_movie_parties_path(@user, @movie.id), method: :post, local: true do |form| %>
+<%= form_with url: users_movie_parties_path(@movie.id), method: :post, local: true do |form| %>
   <%= form.label :duration_in_minutes %>
   <%= form.number_field :duration, value: @movie.runtime, min: @movie.runtime %>
 

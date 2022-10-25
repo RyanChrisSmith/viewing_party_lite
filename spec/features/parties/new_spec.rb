@@ -5,13 +5,16 @@ RSpec.describe 'New Viewing Party Page' do
     VCR.use_cassette("godfather_party") do
       @movie = MoviesFacade.movie_details(238)
       users = FactoryBot.create_list(:random_user, 5)
-
+      visit login_path
       @user_1 = users[0]
       @user_2 = users[1]
       @user_3 = users[2]
       @user_4 = users[3]
       @user_5 = users[4]
-      visit new_user_movie_party_path(@user_1, @movie.id)
+      fill_in :email, with: @user_1.email
+      fill_in :password, with: @user_1.password
+      click_on 'Login'
+      visit new_users_movie_party_path(@movie.id)
     end
   end
 
@@ -29,7 +32,7 @@ RSpec.describe 'New Viewing Party Page' do
         fill_in :date, with: Faker::Time.forward(days: 4).to_formatted_s(:date)
 
         click_button("Submit")
-        expect(current_path).to eq(user_path(@user_1))
+        expect(current_path).to eq(users_path)
         expect(page).to have_content("Godfather")
       end
 
@@ -38,13 +41,13 @@ RSpec.describe 'New Viewing Party Page' do
         fill_in :date, with: Faker::Time.forward(days: 4).to_formatted_s(:date)
         check @user_2.email
         click_button "Submit"
-        expect(current_path).to eq(user_path(@user_1))
+        expect(current_path).to eq(users_path)
       end
 
       it 'will not create a new party if the start date and time are not filled out', :vcr do
         click_button "Submit"
 
-        expect(current_path).to eq new_user_movie_party_path(@user_1, @movie.id)
+        expect(current_path).to eq new_users_movie_party_path(@movie.id)
         expect(page).to have_content "Please Input a Valid Day and Time"
       end
     end
