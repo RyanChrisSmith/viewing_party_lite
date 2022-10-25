@@ -1,9 +1,9 @@
 <h1>Viewing Party Lite</h1>
 
-<% if current_user %>
-  <p>you are logged in!</p>
-  <%= link_to "Logout", '/logout', method: :delete %>
-<%  else %>
+  <%= link_to "Register as a User", new_users_path %>
+<% if session[:user_id] %>
+  <%= link_to "Log Out", logout_path %>
+<% else %>
   <%= link_to "Register as a User", new_users_path %>
   <%= link_to "Login", login_path %>
 <% end %>
